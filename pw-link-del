@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Step 1: Save existing links to a temporary file
+pw-link -l | awk '
+{
+    if ($1 != "|->") {
+        prev = $0
+    } 
+    else {
+        dest = substr($0, index($0, $2))  
+        print "\"" prev "\" \"" dest "\""
+    }
+}
+' | sed 's/" >/" /' > /tmp/current_links.txt
+
+echo "Saved current links to /tmp/current_links.txt"
+
+# Step 2: Read the file and unlink each connection
+while IFS= read -r line; do
+    src=$(echo "$line" | awk -F'" "' '{print $1}' | tr -d '"')
+    dest=$(echo "$line" | awk -F'" "' '{print $2}' | tr -d '"')
+
+    echo "Unlinking: \"$src\" \"$dest\""  # Debug output
+    pw-link -d "$src" "$dest"
+done < /tmp/current_links.txt
+
+echo "All links removed."

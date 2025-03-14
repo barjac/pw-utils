@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if (( ${#1} > 0 )); then
+    output_file=$1
+else
+    output_file=saved_links.txt
+fi
+
+pw-link -l | awk '
+{
+    # If the line does not start with "|->", store it as the previous line (source)
+    if ($1 != "|->") {
+        prev = $0
+    } 
+    else {
+        # Extract the destination name, removing "|-> " from the start
+        dest = substr($0, index($0, $2))  # Get the destination part correctly
+
+        # Print both source and destination, wrapped in quotes
+        print "\"" prev "\" \"" dest "\""
+    }
+}
+' | sed 's/" >/" /' > $output_file  # Remove unwanted "> " from the destination
+
+echo "Links saved to $output_file"
+
+
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pw-link -l | awk '{
+ if ($0 !~ /\|/) prev = $0  # Store the last non-token line
+    else { sub(/\|/, "", $0); print prev, $0 }  # Remove pipe and print
+	}' | tr -s ' ' |grep "\->"
