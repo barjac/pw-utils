@@ -11,7 +11,7 @@ alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback:capture_MONO -> myf
 alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback:capture_MONO -> myfilter:playback_FR
 ```
 ## pw-link-del
-Deletes all active links. Does what pw-link -d is supposed to do
+Deletes all active links.
 
 ## pw-link-save [filename]
 Saves a list of all active links to a file which defaults to "saved_links.txt" unless a filename is passed to it.
