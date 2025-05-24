@@ -31,3 +31,9 @@ always adds them.
 ## pw-link-restore \<filename\>
 Restores links saved by `pw-link-save` unless nodes are either missing or otherwise in use.
 Failure or success messages follow each attempt for debugging.
+
+## pw-read-vol
+Reads volume levels from config into devices
+
+## pw-save-vol
+Saves all current device volume levels into config
