@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Step 1: Save existing links to a temporary file
+# Save existing links to a temporary file
 pw-link -l | awk '
 {
     if ($1 != "|->") {
@@ -15,7 +15,7 @@ pw-link -l | awk '
 
 echo "Saved current links to /tmp/current_links.txt"
 
-# Step 2: Read the file and unlink each connection
+# Read the file and unlink each connection
 while IFS= read -r line; do
     src=$(echo "$line" | awk -F'" "' '{print $1}' | tr -d '"')
     dest=$(echo "$line" | awk -F'" "' '{print $2}' | tr -d '"')
