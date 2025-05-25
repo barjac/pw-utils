@@ -32,8 +32,8 @@ always adds them.
 Restores links saved by `pw-link-save` unless nodes are either missing or otherwise in use.
 Failure or success messages follow each attempt for debugging.
 
-## pw-read-vol
-Reads volume levels from config into devices
+## pw-save-vols
+Saves all current device volume levels into ~/.config/pipewire/saved-volumes.db
 
-## pw-save-vol
-Saves all current device volume levels into config
+## pw-restore-vols
+Reads volume levels from ~/.config/pipewire/saved-volumes.db into running system.
