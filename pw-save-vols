@@ -23,6 +23,7 @@ wpctl status | grep '\[vol:' | while read -r line; do
   class=$(echo "$node_info" | grep 'media.class' | cut -d'"' -f2)
 
   if [[ -n "$name" && -n "$class" && -n "$vol" ]]; then
+    echo "$vol|$class|$name" | tr '|' '\t'
     echo "$name|$class|$vol" >> "$SAVE_FILE"
   fi
 done

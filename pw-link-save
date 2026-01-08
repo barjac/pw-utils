@@ -6,21 +6,16 @@ else
     output_file=saved_links.txt
 fi
 
-pw-link -l | awk '
-{
-    # If the line does not start with "|->", store it as the previous line (source)
-    if ($1 != "|->") {
-        prev = $0
-    } 
-    else {
-        # Extract the destination name, removing "|-> " from the start
-        dest = substr($0, index($0, $2))  # Get the destination part correctly
+pw-link -l |
+awk '
+    $0 !~ /\|/ { prev = $0; next }
 
-        # Print both source and destination, wrapped in quotes
-        print "\"" prev "\" \"" dest "\""
+    /->/ {
+        sub(/\|/, "", $0)            # remove pipe
+        gsub(/[ ]+->[ ]+/, " ", $0)  # remove arrow, leave one space
+        print prev $0                # concatenate, don’t add OFS
     }
-}
-' | sed 's/" >/" /' > $output_file  # Remove unwanted "> " from the destination
+' > $output_file  # Remove unwanted "> " from the destination
 
 echo "Links saved to $output_file"
 

@@ -5,14 +5,10 @@ if (( ${#1} > 0 )); then
 else
     input_file=saved_links.txt
 fi
-while IFS= read -r line; do
-    # Extract source and destination correctly using awk
-    src=$(echo "$line" | awk -F'" "' '{print $1}' | tr -d '"')
-    dest=$(echo "$line" | awk -F'" "' '{print $2}' | tr -d '"')
 
-    echo "Linking: \"$src\" > \"$dest\""  # Debug output
-    pw-link "$src" "$dest"
+while IFS= read -r line; do
+    echo "Linking: $line"  # Debug output
+    pw-link $line
 done < $input_file
 
-echo "Links restored where possible."
 
