@@ -1,0 +1,12 @@
+FDV_TX_out:monitor_FL alsa_capture.python3.13:input_MONO
+FDV_RX_out:monitor_MONO alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FL
+FDV_RX_out:monitor_MONO alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FR
+FDV_RX_out:monitor_MONO alsa_output.pci-0000_00_1b.0.analog-stereo:playback_FL
+FDV_RX_out:monitor_MONO alsa_output.pci-0000_00_1b.0.analog-stereo:playback_FR
+alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback:capture_MONO FDV_RX_in:playback_FL
+alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback:capture_MONO alsa_capture.python3.13:input_MONO
+alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback:capture_MONO FDV_TX_in:playback_FL
+alsa_playback.python3.13:output_FL alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FL
+alsa_playback.python3.13:output_FL alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo:playback_FL
+alsa_playback.python3.13:output_FR alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FR
+alsa_playback.python3.13:output_FR alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo:playback_FR

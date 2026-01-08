@@ -1,0 +1,91 @@
+#!/bin/bash
+# freedv-sound-setup
+#set -x
+
+# Use default 'freedv-links' file in home folder or pass a different full path as parameter.
+FREEDV_LINKS=${1:-/home/$USER/freedv-links}
+
+[[ -f $FREEDV_LINKS ]] || { echo "Create a ${FREEDV_LINKS} file first with 'pw-link-ls > freedv-links' in a running FreeDV"; exit 1; }
+
+# Restart sound servers
+systemctl --user restart pipewire wireplumber
+
+###################
+# Create null-sinks
+###################
+if ! pw-cli ls | grep -q FDV_TX_out; then
+     pactl load-module module-null-sink sink_name=FDV_TX_out sink_properties=device.description=FDV_TX_out latency_msec=1
+fi
+if ! pw-cli ls | grep -q FDV_TX_in; then
+     pactl load-module module-null-sink sink_name=FDV_TX_in sink_properties=device.description=FDV_TX_in latency_msec=1
+fi
+if ! pw-cli ls | grep -q FDV_RX_out ; then
+     pactl load-module module-null-sink \
+        sink_name=FDV_RX_out \
+        sink_properties=device.description=FDV_RX_out \
+        channels=1 \
+        channel_map=mono \
+        latency_msec=1
+fi
+if ! pw-cli ls | grep -q FDV_RX_in ; then
+     pactl load-module module-null-sink sink_name=FDV_RX_in sink_properties=device.description=FDV_RX_in latency_msec=1
+fi
+
+##############################
+# Start TX bandpass filter
+##############################
+trap 'kill "$BPF_PID" 2>/dev/null; rm -f "$LOCKFILE"' EXIT INT TERM
+
+# Create lock to avoid two instances and allow kill on close of FreeDV
+LOCKFILE="/tmp/BPF.lock"
+
+# Acquire lock, or continue if it's already taken
+exec 200>$LOCKFILE
+
+flock -n 200 && { 
+    # If we got the lock, start a new BPF.py instance
+    echo "We got BPF lock"
+    python3 BPF.py &
+    BPF_PID=$!
+    echo "BPF id = $BPF_PID"
+    # Wait for it to start
+    sleep 0.5
+    } || {
+    # If the lock was already taken, find the existing BPF.py process
+    BPF_PID=$(pgrep -f BPF.py)
+}
+
+# Export BPF.py pid and LOCKFILE so we can use in freedv-start on close
+export BPF_PID=$BPF_PID
+export FDV_LOCKFILE=$LOCKFILE
+
+######################
+# Restore all links
+######################
+echo "Restoring links"
+while read link; do
+#sleep 0.1
+echo $link
+pw-link $link || echo "Failed to link: $link"
+done < /home/$USER/freedv-links
+
+######################
+# Remove any bad links
+######################
+echo "Removing any bad links"
+
+# Get current links list
+pw-link-ls > freedv_tmp
+
+# Remove any remaining links not in FREEDV_LINKS
+while read -r link; do
+    if ! cat "$FREEDV_LINKS" |grep -q "$link" ; then
+echo "Removing $link"
+        pw-link -d $link && echo Removed $link
+    else
+    echo "OK $link"
+    fi
+done < freedv_tmp
+
+
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# When the main application exits, ensure BPF.py is also terminated
+if [ ! -z "$BPF_PID" ]; then
+    kill $BPF_PID
+    rm -f $FDV_LOCKFILE
+fi
