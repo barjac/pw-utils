@@ -1,0 +1,48 @@
+baz@localhost:~ (master)$ freedv-start
+536870916
+536870917
+536870918
+536870919
+We got BPF lock
+BPF id = 53074
+Restoring links
+alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback:capture_MONO FDV_RX_in:playback_FL
+alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback:capture_MONO FDV_TX_in:playback_FL
+FDV_TX_out:monitor_FL alsa_capture.python3.13:input_MONO
+FDV_RX_out:monitor_MONO alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FL
+FDV_RX_out:monitor_MONO alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FR
+FDV_RX_out:monitor_MONO alsa_output.pci-0000_00_1b.0.analog-stereo:playback_FL
+FDV_RX_out:monitor_MONO alsa_output.pci-0000_00_1b.0.analog-stereo:playback_FR
+alsa_playback.python3.13:output_FL alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo:playback_FL
+alsa_playback.python3.13:output_FR alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo:playback_FR
+Removing any bad links
+Removing Firefox:output_FL alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FL
+Removed Firefox:output_FL alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FL
+Removing Firefox:output_FR alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FR
+Removed Firefox:output_FR alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FR
+OK FDV_TX_out:monitor_FL alsa_capture.python3.13:input_MONO
+OK FDV_RX_out:monitor_MONO alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FL
+OK FDV_RX_out:monitor_MONO alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FR
+OK FDV_RX_out:monitor_MONO alsa_output.pci-0000_00_1b.0.analog-stereo:playback_FL
+OK FDV_RX_out:monitor_MONO alsa_output.pci-0000_00_1b.0.analog-stereo:playback_FR
+OK alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback:capture_MONO FDV_RX_in:playback_FL
+Removing alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback:capture_MONO alsa_capture.python3.13:input_MONO
+Removed alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback:capture_MONO alsa_capture.python3.13:input_MONO
+OK alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback:capture_MONO FDV_TX_in:playback_FL
+Removing alsa_playback.python3.13:output_FL alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FL
+Removed alsa_playback.python3.13:output_FL alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FL
+OK alsa_playback.python3.13:output_FL alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo:playback_FL
+Removing alsa_playback.python3.13:output_FR alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FR
+Removed alsa_playback.python3.13:output_FR alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo:playback_FR
+OK alsa_playback.python3.13:output_FR alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo:playback_FR
+Restoring volume 1.00 to FDV_TX_out (Audio/Sink)
+Restoring volume 1.00 to FDV_TX_in (Audio/Sink)
+Restoring volume 1.00 to alsa_output.pci-0000_00_1b.0.analog-stereo (Audio/Sink)
+Restoring volume 0.53 to alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo (Audio/Sink)
+Restoring volume 1.00 to FDV_RX_out (Audio/Sink)
+Restoring volume 0.50 to alsa_output.usb-GeneralPlus_USB_Audio_Device-00.analog-stereo (Audio/Sink)
+Restoring volume 0.85 to FDV_RX_in (Audio/Sink)
+Restoring volume 1.00 to alsa_input.pci-0000_00_1b.0.analog-stereo (Audio/Source)
+Restoring volume 0.45 to alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback (Audio/Source)
+Restoring volume 0.47 to alsa_input.usb-GeneralPlus_USB_Audio_Device-00.mono-fallback (Audio/Source)
+22:40:18 [1] INFO /home/baz/freedv-rade/freedv-gui/src/main.cpp:519: FreeDV version 2.2.0-dev-8264e starting
